@@ -52,10 +52,10 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="rise hidden lg:block" style={{ animationDelay: "0.2s" }}>
-          <div className="relative aspect-[5/4] w-full rounded-2xl border border-line bg-surface/60 p-6 backdrop-blur-sm">
+        <div className="rise" style={{ animationDelay: "0.2s" }}>
+          <div className="relative mx-auto aspect-[5/4] w-full max-w-md overflow-hidden rounded-2xl border border-line bg-surface/60 p-4 backdrop-blur-sm sm:p-6 lg:max-w-none">
             <HeroVisual />
-            <div className="absolute bottom-5 left-6 right-6 flex items-center justify-between text-xs text-mut">
+            <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between text-xs text-mut sm:bottom-5 sm:left-6 sm:right-6">
               <span>Dados dispersos</span>
               <span className="text-amber">→ Direção</span>
             </div>
