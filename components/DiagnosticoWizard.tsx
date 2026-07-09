@@ -33,14 +33,17 @@ const PERGUNTAS: Pergunta[] = [
   { id: "q2", bloco: "Contexto", texto: "Faturamento mensal aproximado?", tipo: "single", opcoes: [
     { code: "ate100k", label: "Até R$100 mil" },
     { code: "100k_500k", label: "R$100–500 mil" },
-    { code: "500k_2mi", label: "R$500 mil–2 mi" },
-    { code: "2mi_10mi", label: "R$2–10 mi" },
+    { code: "500k_1mi", label: "R$500 mil–1 mi" },
+    { code: "1mi_2mi", label: "R$1–2 mi" },
+    { code: "2mi_5mi", label: "R$2–5 mi" },
+    { code: "5mi_10mi", label: "R$5–10 mi" },
     { code: "mais10mi", label: "+R$10 mi" },
   ] },
   { id: "q3", bloco: "Contexto", texto: "Quantos colaboradores?", tipo: "single", opcoes: [
     { code: "1_10", label: "1–10" },
     { code: "11_50", label: "11–50" },
-    { code: "51_200", label: "51–200" },
+    { code: "51_100", label: "51–100" },
+    { code: "101_200", label: "101–200" },
     { code: "mais200", label: "+200" },
   ] },
   { id: "q4", bloco: "Contexto", texto: "Qual sistema/ERP você usa hoje?", tipo: "single", opcoes: [
@@ -122,7 +125,7 @@ const PERGUNTAS: Pergunta[] = [
   ] },
   // Bloco 5 — Dor e urgência
   { id: "q17", bloco: "Dor e urgência", texto: "Qual a sua maior dor hoje?", tipo: "text" },
-  { id: "q18", bloco: "Dor e urgência", texto: "Em quanto tempo gostaria de resolver isso?", tipo: "single", opcoes: [
+  { id: "q18", bloco: "Dor e urgência", texto: "Qual a sua urgência em jogar o jogo certo?", tipo: "single", opcoes: [
     { code: "pra_ontem", label: "Pra ontem" },
     { code: "3_meses", label: "Nos próximos 3 meses" },
     { code: "pesquisando", label: "Sem pressa, estou pesquisando" },

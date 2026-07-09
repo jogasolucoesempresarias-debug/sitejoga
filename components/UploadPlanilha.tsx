@@ -143,7 +143,7 @@ export default function UploadPlanilha({ diagnosticoId }: { diagnosticoId: numbe
           type="file"
           accept=".xlsx,.xls,.csv"
           onChange={(e) => { setFile(e.target.files?.[0] ?? null); setErr(""); setFallback(false); }}
-          className="block w-full text-sm text-mut file:mr-4 file:rounded-full file:border-0 file:bg-graphite file:px-4 file:py-2 file:text-sm file:font-semibold file:text-cream hover:file:bg-line"
+          className="block w-full text-sm text-cream/90 file:mr-4 file:cursor-pointer file:rounded-full file:border file:border-amber file:bg-amber/15 file:px-5 file:py-2.5 file:text-sm file:font-semibold file:text-amber hover:file:bg-amber/25"
         />
       </div>
 
