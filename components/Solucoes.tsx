@@ -2,8 +2,8 @@ import Reveal from "./Reveal";
 
 const solucoes = [
   {
-    t: "Gestão Comercial de Vendas",
-    p: "Acompanhe desempenho, rentabilidade e execução comercial.",
+    t: "Gestão de Vendas",
+    p: "Acompanhe desempenho, rentabilidade, metas e execução comercial.",
     dores: [
       "Gestão focada só no faturamento",
       "Metas sem acompanhamento contínuo",
