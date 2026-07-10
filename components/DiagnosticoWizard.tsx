@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { API_BASE, CONTACT } from "@/lib/site";
+import { API_BASE, CONTACT, UPLOAD_PLANILHA_ATIVO } from "@/lib/site";
 import UploadPlanilha from "./UploadPlanilha";
 
 /* ─────────────────────────────────────────────────────────────
@@ -449,9 +449,11 @@ export default function DiagnosticoWizard() {
         ))}
       </div>
 
-      <div className="mt-8">
-        {resultado && <UploadPlanilha diagnosticoId={resultado.id} />}
-      </div>
+      {UPLOAD_PLANILHA_ATIVO && resultado && (
+        <div className="mt-8">
+          <UploadPlanilha diagnosticoId={resultado.id} />
+        </div>
+      )}
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <a

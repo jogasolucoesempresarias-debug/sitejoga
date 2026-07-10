@@ -27,6 +27,10 @@ export function waLink(text = "Olá! Vim pelo site da JOGA e quero saber mais so
 // export estático, esse valor é embutido no build.
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
 
+// Upload de planilha (Fase 2b) — OFF em produção até estar redondo.
+// Pra testar localmente: NEXT_PUBLIC_UPLOAD_ATIVO=true no .env.local (embutido no build).
+export const UPLOAD_PLANILHA_ATIVO = process.env.NEXT_PUBLIC_UPLOAD_ATIVO === "true";
+
 // Âncoras com "/" na frente para funcionarem de qualquer página (ex.: a partir de
 // /diagnostico voltam para a home e rolam até a seção).
 export const NAV = [
