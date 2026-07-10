@@ -48,7 +48,7 @@ const PERGUNTAS: Pergunta[] = [
   ] },
   { id: "q4", bloco: "Contexto", texto: "Qual sistema/ERP você usa hoje?", tipo: "single", opcoes: [
     { code: "winthor", label: "Winthor" },
-    { code: "totvs", label: "TOTVS" },
+    { code: "sankhya", label: "Sankhya" },
     { code: "bling", label: "Bling / Tiny" },
     { code: "outro", label: "Outro" },
     { code: "nenhum", label: "Não tenho sistema integrado" },
