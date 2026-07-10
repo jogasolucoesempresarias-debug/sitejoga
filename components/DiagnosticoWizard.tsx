@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { API_BASE, CONTACT, UPLOAD_PLANILHA_ATIVO } from "@/lib/site";
 import UploadPlanilha from "./UploadPlanilha";
+import RadarPlacar from "./RadarPlacar";
 
 /* ─────────────────────────────────────────────────────────────
    Questionário do Diagnóstico JOGA (spec §4).
@@ -66,18 +67,21 @@ const PERGUNTAS: Pergunta[] = [
     { code: "semana", label: "Toda semana" },
     { code: "mes", label: "Todo mês" },
     { code: "problema", label: "Só quando dá problema" },
+    { code: "nao_olho", label: "Não olho" },
   ] },
   { id: "q7", bloco: "Como você decide hoje", texto: "Quanto tempo sua equipe gasta montando planilha/relatório por semana?", tipo: "single", opcoes: [
     { code: "quase_nada", label: "Quase nada" },
     { code: "horas", label: "Algumas horas" },
     { code: "dia_inteiro", label: "Um dia inteiro" },
     { code: "mais", label: "Mais que isso" },
+    { code: "nao_sei", label: "Não sei / não tenho ideia" },
   ] },
   // Bloco 2 — Comercial
   { id: "q8", bloco: "Comercial", texto: "Você acompanha margem e lucro por produto e por cliente, ou só o faturamento?", tipo: "single", opcoes: [
     { code: "faturamento", label: "Só faturamento" },
     { code: "fat_margens", label: "Faturamento + algumas margens" },
     { code: "margem_completa", label: "Margem completa" },
+    { code: "nao_acompanho", label: "Não acompanho" },
   ] },
   { id: "q9", bloco: "Comercial", texto: "Suas metas têm acompanhamento contínuo?", tipo: "single", opcoes: [
     { code: "sem_metas", label: "Não tenho metas" },
@@ -423,6 +427,12 @@ export default function DiagnosticoWizard() {
         Placar de maturidade
       </h2>
       <p className="mt-3 text-sm text-mut">{resultado?.mensagem}</p>
+
+      {resultado && (
+        <div className="mt-6 flex justify-center">
+          <RadarPlacar placar={resultado.placar} />
+        </div>
+      )}
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {resultado && Object.entries(resultado.placar).map(([area, nivel]) => (
