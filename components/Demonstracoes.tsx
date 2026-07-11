@@ -15,7 +15,7 @@ type Solucao = {
 const solucoes: Solucao[] = [
   {
     key: "carteira",
-    nome: "Gestão de Carteira de Clientes",
+    nome: "Gestão de Clientes",
     problema: "Clientes que reduziram ou pararam de comprar — e ninguém percebe a tempo.",
     indicadores: "Segmentação RFM, recência, frequência, ticket, receita em risco, previsão de recompra e retenção (cohort).",
     decisao: "Quais clientes recuperar primeiro, quem ligar hoje — e por quê.",

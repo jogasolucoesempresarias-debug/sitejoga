@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s · JOGA Soluções Empresariais",
   },
   description:
-    "Construímos a camada de inteligência das empresas — da engenharia de dados à IA aplicada à gestão. Soluções para Gestão Comercial, Carteira de Clientes e Estoque.",
+    "Construímos a camada de inteligência das empresas — da engenharia de dados à IA aplicada à gestão. Soluções para Gestão de Vendas, Gestão de Clientes e Gestão de Estoque.",
   keywords: [
     "business intelligence",
     "engenharia de dados",

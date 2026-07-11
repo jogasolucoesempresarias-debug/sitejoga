@@ -111,17 +111,17 @@ const PERGUNTAS: Pergunta[] = [
     { code: "dre_nunca", label: "Nunca" },
   ] },
   // Bloco 3 — Carteira
-  { id: "q11", bloco: "Carteira de clientes", texto: "Você sabe quantos clientes deixaram de comprar nos últimos 60–90 dias?", tipo: "single", opcoes: [
+  { id: "q11", bloco: "Gestão de Clientes", texto: "Você sabe quantos clientes deixaram de comprar nos últimos 60–90 dias?", tipo: "single", opcoes: [
     { code: "nao_ideia", label: "Não faço ideia" },
     { code: "nocao", label: "Tenho uma noção" },
     { code: "exato", label: "Sei exatamente" },
   ] },
-  { id: "q12", bloco: "Carteira de clientes", texto: "Sua carteira é classificada (ativos / em risco / inativos)?", tipo: "single", opcoes: [
+  { id: "q12", bloco: "Gestão de Clientes", texto: "Sua carteira é classificada (ativos / em risco / inativos)?", tipo: "single", opcoes: [
     { code: "nao", label: "Não" },
     { code: "informal", label: "Informalmente" },
     { code: "formal", label: "Sim, formal" },
   ] },
-  { id: "q13", bloco: "Carteira de clientes", texto: "Quanto da sua carteira você considera inativo hoje?", tipo: "single", opcoes: [
+  { id: "q13", bloco: "Gestão de Clientes", texto: "Quanto da sua carteira você considera inativo hoje?", tipo: "single", opcoes: [
     { code: "menos10", label: "Menos de 10%" },
     { code: "10_25", label: "10–25%" },
     { code: "25_50", label: "25–50%" },

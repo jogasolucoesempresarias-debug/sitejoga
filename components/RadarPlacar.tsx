@@ -13,7 +13,7 @@ export default function RadarPlacar({ placar }: { placar: Record<string, string>
   const n = areas.length;
   if (n < 3) return null; // radar precisa de 3+ eixos
 
-  const cx = 180, cy = 158, R = 100;
+  const cx = 215, cy = 162, R = 102;
   const ang = (i: number) => -Math.PI / 2 + (i / n) * 2 * Math.PI;
   const pt = (i: number, r: number): [number, number] => [
     cx + r * Math.cos(ang(i)),
@@ -25,7 +25,7 @@ export default function RadarPlacar({ placar }: { placar: Record<string, string>
   const dataStr = dataPts.map((p) => p.map((v) => v.toFixed(1)).join(",")).join(" ");
 
   return (
-    <svg viewBox="0 0 360 330" className="w-full max-w-[360px]" role="img" aria-label="Radar de maturidade por área">
+    <svg viewBox="0 0 430 335" className="w-full max-w-[400px]" role="img" aria-label="Radar de maturidade por área">
       {/* anéis de nível */}
       {[1, 2, 3, 4].map((lvl) => (
         <polygon key={lvl} points={poly((lvl / MAX) * R)} fill="none" stroke="#232a33" strokeWidth={1} />

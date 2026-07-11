@@ -18,8 +18,8 @@ const solucoes = [
     ],
   },
   {
-    t: "Gestão de Carteira de Clientes",
-    p: "Entenda sua carteira e recupere oportunidades de venda.",
+    t: "Gestão de Clientes",
+    p: "Entenda sua base de clientes e recupere oportunidades de venda.",
     dores: [
       "Clientes que deixaram de comprar",
       "Queda na frequência ou no ticket",
