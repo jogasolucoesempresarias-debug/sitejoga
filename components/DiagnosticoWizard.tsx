@@ -93,6 +93,23 @@ const PERGUNTAS: Pergunta[] = [
     { code: "esforco", label: "Só com esforço / planilha" },
     { code: "facil", label: "Sim, fácil" },
   ] },
+  // Bloco Financeiro
+  { id: "q19", bloco: "Financeiro", texto: "Você sabe seu lucro líquido real do mês (depois de tudo), ou só o faturamento?", tipo: "single", opcoes: [
+    { code: "lucro_exato", label: "Sei o lucro líquido exato" },
+    { code: "lucro_estimo", label: "Estimo, mas não fecho" },
+    { code: "lucro_faturamento", label: "Só acompanho o faturamento" },
+  ] },
+  { id: "q20", bloco: "Financeiro", texto: "Você controla sua inadimplência — quanto está em atraso e quem não pagou?", tipo: "single", opcoes: [
+    { code: "inad_controlo", label: "Controlo e cobro ativamente" },
+    { code: "inad_nocao", label: "Tenho uma noção" },
+    { code: "inad_nao", label: "Não sei / não controlo" },
+    { code: "inad_nao_prazo", label: "Não vendo a prazo" },
+  ] },
+  { id: "q21", bloco: "Financeiro", texto: "Você fecha um resultado gerencial (DRE) e acompanha o fluxo de caixa?", tipo: "single", opcoes: [
+    { code: "dre_mes", label: "Todo mês" },
+    { code: "dre_as_vezes", label: "Às vezes" },
+    { code: "dre_nunca", label: "Nunca" },
+  ] },
   // Bloco 3 — Carteira
   { id: "q11", bloco: "Carteira de clientes", texto: "Você sabe quantos clientes deixaram de comprar nos últimos 60–90 dias?", tipo: "single", opcoes: [
     { code: "nao_ideia", label: "Não faço ideia" },
@@ -435,14 +452,20 @@ export default function DiagnosticoWizard() {
       )}
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {resultado && Object.entries(resultado.placar).map(([area, nivel]) => (
-          <div key={area} className="flex items-center justify-between rounded-xl border border-line bg-graphite px-5 py-4">
-            <span className="font-medium text-cream">{area}</span>
-            <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${NIVEL_STYLE[nivel] ?? "border-line text-mut"}`}>
-              {nivel}
-            </span>
-          </div>
-        ))}
+        {resultado && Object.entries(resultado.placar).map(([area, nivel], i, arr) => {
+          const ultimoImpar = arr.length % 2 === 1 && i === arr.length - 1;
+          return (
+            <div
+              key={area}
+              className={`flex items-center justify-between rounded-xl border border-line bg-graphite px-5 py-4 ${ultimoImpar ? "sm:col-span-2" : ""}`}
+            >
+              <span className="font-medium text-cream">{area}</span>
+              <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${NIVEL_STYLE[nivel] ?? "border-line text-mut"}`}>
+                {nivel}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       <h3 className="mt-8 font-display text-lg font-bold text-cream">
