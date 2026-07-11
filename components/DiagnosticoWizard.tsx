@@ -83,7 +83,7 @@ const PERGUNTAS: Pergunta[] = [
     { code: "margem_completa", label: "Margem completa" },
     { code: "nao_acompanho", label: "Não acompanho" },
   ] },
-  { id: "q9", bloco: "Comercial", texto: "Suas metas têm acompanhamento contínuo?", tipo: "single", opcoes: [
+  { id: "q9", bloco: "Comercial", texto: "Suas metas têm acompanhamento?", tipo: "single", opcoes: [
     { code: "sem_metas", label: "Não tenho metas" },
     { code: "fim_mes", label: "Tenho, mas só olho no fim do mês" },
     { code: "de_perto", label: "Acompanho de perto" },
@@ -301,7 +301,7 @@ export default function DiagnosticoWizard() {
 
   if (stage === "intro") {
     return (
-      <Card>
+      <Card head>
         <span className="eyebrow">5–7 minutos</span>
         <h2 className="mt-4 font-display text-2xl font-bold text-cream sm:text-3xl">
           Vamos montar o raio-x da sua gestão.
@@ -323,7 +323,7 @@ export default function DiagnosticoWizard() {
   if (stage === "quiz") {
     const respondida = respostas[atual.id];
     return (
-      <Card>
+      <Card head>
         <Progresso atual={qi + 1} total={total} bloco={atual.bloco} />
         <div key={atual.id} className="rise">
           <h2 className="mt-6 font-display text-xl font-bold leading-snug text-cream sm:text-2xl">
@@ -373,7 +373,7 @@ export default function DiagnosticoWizard() {
 
   if (stage === "wall") {
     return (
-      <Card>
+      <Card head>
         <span className="eyebrow">Quase lá</span>
         <h2 className="mt-4 font-display text-2xl font-bold text-cream sm:text-3xl">
           Pra onde enviamos o seu diagnóstico?
@@ -469,7 +469,9 @@ export default function DiagnosticoWizard() {
       </div>
 
       <h3 className="mt-8 font-display text-lg font-bold text-cream">
-        Identificamos 3 oportunidades
+        {resultado && resultado.oportunidades.length === 1
+          ? "Identificamos 1 oportunidade"
+          : `Identificamos ${resultado?.oportunidades.length ?? 0} oportunidades`}
       </h3>
       <div className="mt-4 grid gap-2.5">
         {resultado?.oportunidades.map((titulo, i) => (
@@ -504,8 +506,29 @@ export default function DiagnosticoWizard() {
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border border-line bg-surface p-6 md:p-8">{children}</div>;
+function Card({ children, head }: { children: React.ReactNode; head?: boolean }) {
+  return (
+    <>
+      {head && <PageHead />}
+      <div className="rounded-2xl border border-line bg-surface p-6 md:p-8">{children}</div>
+    </>
+  );
+}
+
+// Cabeçalho da página (só antes do resultado — some quando o diagnóstico é gerado).
+function PageHead() {
+  return (
+    <div className="mb-10 text-center">
+      <span className="eyebrow justify-center">Diagnóstico gratuito</span>
+      <h1 className="mt-5 font-display text-4xl font-bold leading-tight tracking-tight text-cream sm:text-5xl">
+        Jogue o jogo certo com o nosso diagnóstico.
+      </h1>
+      <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-mut">
+        Responda um questionário rápido (5–7 min) e veja na hora o seu raio-x de gestão:
+        o nível de maturidade por área e as oportunidades prioritárias — sem custo.
+      </p>
+    </div>
+  );
 }
 
 function Progresso({ atual, total, bloco }: { atual: number; total: number; bloco: string }) {
