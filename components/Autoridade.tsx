@@ -12,7 +12,7 @@ const socios: Socio[] = [
   {
     nome: "Gabriel França",
     papel: "Desenvolvedor · Sistemas, Dados e IA",
-    foto: "/socios/gabriel.png",
+    foto: "/socios/gabriel.jpeg",
     bio: "Desenvolvedor JOGA. Cria os sistemas de ponta a ponta — banco de dados, back-end, integrações entre ERPs e planilhas, automações e agentes de Inteligência Artificial que rodam no dia a dia das empresas. Transforma dados dispersos em estruturas confiáveis e constrói a base que sustenta o jogo.",
   },
 ];
