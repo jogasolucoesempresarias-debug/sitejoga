@@ -1,11 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { NAV } from "@/lib/site";
+import { CTA as CTA_ESTOQUE, LP_ESTOQUE_PATH } from "@/lib/lp-estoque";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Nas LPs o CTA do topo fala a língua da página, em vez do genérico do site.
+  const naLpEstoque = pathname?.startsWith(LP_ESTOQUE_PATH.replace(/\/$/, "")) ?? false;
+  const cta = naLpEstoque
+    ? CTA_ESTOQUE.primario
+    : { label: "Diagnóstico gratuito", href: "/diagnostico" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -42,10 +51,10 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <a
-            href="/diagnostico"
+            href={cta.href}
             className="hidden rounded-full bg-amber px-4 py-2 text-sm font-semibold text-graphite transition-transform hover:-translate-y-0.5 sm:inline-flex"
           >
-            Diagnóstico gratuito
+            {cta.label}
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -71,11 +80,11 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="/diagnostico"
+              href={cta.href}
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-amber px-4 py-2 text-center text-sm font-semibold text-graphite"
             >
-              Diagnóstico gratuito
+              {cta.label}
             </a>
           </nav>
         </div>

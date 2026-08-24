@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { API_BASE, CONTACT, UPLOAD_PLANILHA_ATIVO } from "@/lib/site";
+import { btnGhost, btnPrimary, field, labelCls } from "@/lib/ui";
 import UploadPlanilha from "./UploadPlanilha";
 import RadarPlacar from "./RadarPlacar";
 
@@ -168,13 +169,7 @@ function maskTelefone(v: string): string {
   return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
 }
 
-const field =
-  "w-full rounded-lg border border-line bg-graphite px-4 py-3 text-sm text-cream placeholder:text-mut/60 outline-none focus:border-amber";
-const labelCls = "mb-1.5 block text-sm font-medium text-cream/90";
-const btnPrimary =
-  "inline-flex items-center justify-center rounded-full bg-amber px-6 py-3.5 font-semibold text-graphite transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0";
-const btnGhost =
-  "inline-flex items-center justify-center rounded-full border border-line px-6 py-3.5 font-semibold text-cream transition-colors hover:border-mut hover:bg-graphite";
+// Classes compartilhadas com a LP de Estoque — ver lib/ui.ts.
 
 type Contato = {
   nome: string; empresa: string; cargo: string;
