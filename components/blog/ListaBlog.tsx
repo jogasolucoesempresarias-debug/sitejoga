@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import CardPost from "./CardPost";
-import { CATEGORIAS, type Categoria, type Post } from "@/lib/blog-comum";
+import type { Post } from "@/lib/blog-comum";
 
 // Filtro por assunto no próprio navegador — todos os artigos já vêm no HTML (bom p/ Google).
 export default function ListaBlog({ posts }: { posts: Post[] }) {
-  const [filtro, setFiltro] = useState<Categoria | null>(null);
-  const presentes = (Object.keys(CATEGORIAS) as Categoria[]).filter((c) =>
-    posts.some((p) => p.categoria === c)
-  );
+  const [filtro, setFiltro] = useState<string | null>(null);
+  // Só os assuntos que têm artigo, na ordem em que aparecem (mais recente primeiro).
+  const presentes = [...new Map(posts.map((p) => [p.categoria, p.categoriaNome])).entries()];
   const visiveis = filtro ? posts.filter((p) => p.categoria === filtro) : posts;
   const [primeiro, ...resto] = visiveis;
 
@@ -25,9 +24,9 @@ export default function ListaBlog({ posts }: { posts: Post[] }) {
           <button className={chip(filtro === null)} onClick={() => setFiltro(null)}>
             Todos
           </button>
-          {presentes.map((c) => (
-            <button key={c} className={chip(filtro === c)} onClick={() => setFiltro(c)}>
-              {CATEGORIAS[c].nome}
+          {presentes.map(([chave, nome]) => (
+            <button key={chave} className={chip(filtro === chave)} onClick={() => setFiltro(chave)}>
+              {nome}
             </button>
           ))}
         </div>

@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CardPost from "@/components/blog/CardPost";
 import {
-  CATEGORIAS,
   absoluta,
-  autorDe,
   dataBR,
   getPost,
   getPosts,
@@ -44,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.resumo,
       publishedTime: post.publicado_em,
       modifiedTime: post.atualizado_em,
-      authors: [autorDe(post).nome],
+      authors: [post.autorInfo.nome],
       ...(post.capa ? { images: [{ url: absoluta(post.capa) }] } : {}),
     },
     twitter: { card: post.capa ? "summary_large_image" : "summary" },
@@ -57,8 +55,8 @@ export default async function ArtigoPage({ params }: Props) {
   if (!post) notFound();
 
   const todos = await getPosts();
-  const autor = autorDe(post);
-  const cat = CATEGORIAS[post.categoria];
+  const autor = post.autorInfo;
+  const cta = post.cta;
   const mais = relacionados(post, todos);
 
   // Dados estruturados (Google entende autor, data e imagem do artigo).
@@ -93,7 +91,7 @@ export default async function ArtigoPage({ params }: Props) {
               Blog
             </a>
             <span className="mx-2">›</span>
-            <span className="text-amber">{cat.nome}</span>
+            <span className="text-amber">{post.categoriaNome}</span>
           </nav>
 
           <h1 className="mt-5 font-display text-[2rem] font-bold leading-[1.1] tracking-tight text-cream sm:text-5xl">
@@ -132,11 +130,11 @@ export default async function ArtigoPage({ params }: Props) {
           <aside className="mt-14 overflow-hidden rounded-2xl border border-amber/30 bg-gradient-to-br from-surface to-graphite p-8 md:p-10">
             <span className="eyebrow">Diagnóstico gratuito</span>
             <p className="mt-4 font-display text-xl font-semibold leading-snug text-cream sm:text-2xl">
-              {cat.cta.texto}
+              {cta.texto}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <a href={cat.cta.href} className={btnPrimary} data-evento="cta_blog">
-                {cat.cta.label}
+              <a href={cta.href} className={btnPrimary} data-evento="cta_blog">
+                {cta.label}
               </a>
               <a
                 href={waLink(`Olá! Li o artigo "${post.titulo}" no blog da JOGA e quero conversar.`)}

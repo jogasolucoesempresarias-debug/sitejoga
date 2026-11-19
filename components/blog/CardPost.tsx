@@ -1,4 +1,4 @@
-import { CATEGORIAS, dataBR, minutosDeLeitura, type Post } from "@/lib/blog-comum";
+import { dataBR, minutosDeLeitura, type Post } from "@/lib/blog-comum";
 
 // Card de artigo: lista do blog e "continue lendo". `destaque` = o mais recente, largo.
 export default function CardPost({ post, destaque = false }: { post: Post; destaque?: boolean }) {
@@ -27,7 +27,7 @@ export default function CardPost({ post, destaque = false }: { post: Post; desta
         )}
       </div>
       <div className={`flex flex-1 flex-col ${destaque ? "p-7 md:p-9" : "p-6"}`}>
-        <span className="eyebrow">{CATEGORIAS[post.categoria].nome}</span>
+        <span className="eyebrow">{post.categoriaNome}</span>
         <h3
           className={`mt-3 font-display font-semibold leading-snug text-cream transition-colors group-hover:text-amber ${
             destaque ? "text-2xl md:text-3xl" : "text-lg"

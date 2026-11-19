@@ -1,73 +1,32 @@
 // Blog — tipos e funções puras. Seguro no navegador (o filtro da lista usa).
 // A leitura da API fica em lib/blog.ts, que só roda no build.
+//
+// Assuntos, autores e o cabeçalho da página são cadastrados pelo João no /admin/blog — nada
+// disso mora mais no código. O build junta tudo em cada Post (categoriaNome, cta, autorInfo).
 
-import { SITE, SOCIOS, type Socio } from "./site";
+import { SITE } from "./site";
+
+export type Autor = { chave: string; nome: string; papel: string; bio: string; foto: string };
+export type Cta = { texto: string; label: string; href: string };
 
 export type Post = {
   slug: string;
   titulo: string;
   resumo: string;
-  categoria: Categoria;
-  autor: "joao" | "gabriel";
+  categoria: string;
+  categoriaNome: string;
+  cta: Cta;
+  autor: string;
+  autorInfo: Autor;
   capa: string | null;
   conteudo: string; // HTML sanitizado no backend (nh3)
   publicado_em: string;
   atualizado_em: string;
 };
 
-export type Categoria = "estoque" | "vendas" | "clientes" | "financeiro" | "gestao";
+export type PaginaBlog = { titulo: string; destaque: string; subtitulo: string };
 
 export const BLOG_PATH = "/blog/";
-
-export const CATEGORIAS: Record<
-  Categoria,
-  { nome: string; cta: { texto: string; label: string; href: string } }
-> = {
-  estoque: {
-    nome: "Estoque",
-    cta: {
-      texto: "Quer saber quanto do seu estoque está parado ou em risco? Responda 12 perguntas e veja o placar na hora.",
-      label: "Quero o diagnóstico do meu estoque",
-      href: "/solucoes/gestao-de-estoque/#questionario",
-    },
-  },
-  vendas: {
-    nome: "Vendas",
-    cta: {
-      texto: "Veja onde a sua gestão comercial pode render mais com os dados que você já tem.",
-      label: "Fazer o diagnóstico gratuito",
-      href: "/diagnostico/",
-    },
-  },
-  clientes: {
-    nome: "Clientes",
-    cta: {
-      texto: "Descubra quantos clientes estão deixando de comprar — e quais recuperar primeiro.",
-      label: "Fazer o diagnóstico gratuito",
-      href: "/diagnostico/",
-    },
-  },
-  financeiro: {
-    nome: "Financeiro",
-    cta: {
-      texto: "Veja se o seu resultado, a inadimplência e o caixa estão sob controle.",
-      label: "Fazer o diagnóstico gratuito",
-      href: "/diagnostico/",
-    },
-  },
-  gestao: {
-    nome: "Gestão",
-    cta: {
-      texto: "Descubra onde a sua empresa pode melhorar com os dados que já possui.",
-      label: "Fazer o diagnóstico gratuito",
-      href: "/diagnostico/",
-    },
-  },
-};
-
-export function autorDe(p: Post): Socio {
-  return SOCIOS.find((s) => s.chave === p.autor) ?? SOCIOS[0];
-}
 
 export function minutosDeLeitura(html: string): number {
   const palavras = html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
@@ -83,13 +42,20 @@ export function dataBR(iso: string): string {
   });
 }
 
-/** Mesma categoria primeiro, depois os mais recentes. */
+/** Mesmo assunto primeiro, depois os mais recentes. */
 export function relacionados(p: Post, todos: Post[], n = 3): Post[] {
   const outros = todos.filter((o) => o.slug !== p.slug);
   return [
     ...outros.filter((o) => o.categoria === p.categoria),
     ...outros.filter((o) => o.categoria !== p.categoria),
   ].slice(0, n);
+}
+
+/** Título do cabeçalho partido em volta do trecho em laranja (se o trecho existir no título). */
+export function partesDoTitulo(p: PaginaBlog): [string, string, string] {
+  const i = p.destaque ? p.titulo.indexOf(p.destaque) : -1;
+  if (i < 0) return [p.titulo, "", ""];
+  return [p.titulo.slice(0, i), p.destaque, p.titulo.slice(i + p.destaque.length)];
 }
 
 /** URL absoluta (OG image / JSON-LD exigem). */
