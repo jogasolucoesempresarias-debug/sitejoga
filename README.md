@@ -99,7 +99,7 @@ exec docker service update --image ghcr.io/jogasolucoesempresarias-debug/sitejog
 ' | sudo tee /usr/local/bin/deploy-sitejoga >/dev/null && sudo chmod 755 /usr/local/bin/deploy-sitejoga
 echo 'joaogabriel ALL=(root) NOPASSWD: /usr/local/bin/deploy-sitejoga' | sudo tee /etc/sudoers.d/deploy-sitejoga >/dev/null && sudo chmod 440 /etc/sudoers.d/deploy-sitejoga && sudo visudo -cf /etc/sudoers.d/deploy-sitejoga
 ssh-keygen -t ed25519 -N "" -C github-deploy-sitejoga -f ~/deploy_sitejoga
-echo "command=\"sudo /usr/local/bin/deploy-sitejoga\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty $(cat ~/deploy_sitejoga.pub)" >> ~/.ssh/authorized_keys
+echo "command=\"sudo -n /usr/local/bin/deploy-sitejoga\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty $(cat ~/deploy_sitejoga.pub)" >> ~/.ssh/authorized_keys
 cat ~/deploy_sitejoga
 ssh-keyscan -t ed25519 <IP do servidor> 2>/dev/null
 rm ~/deploy_sitejoga ~/deploy_sitejoga.pub
