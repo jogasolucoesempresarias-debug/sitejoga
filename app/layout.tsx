@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Analytics from "@/components/Analytics";
+import { getPosts } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
 const display = Space_Grotesk({
@@ -53,9 +55,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // O link "Blog" só aparece no menu quando já existe artigo publicado.
+  const temBlog = (await getPosts()).length > 0;
   return (
     <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
       <body className="min-h-screen bg-graphite text-cream antialiased">
@@ -64,10 +68,11 @@ export default function RootLayout({
             __html: "document.documentElement.classList.add('js')",
           }}
         />
-        <Header />
+        <Header temBlog={temBlog} />
         <main>{children}</main>
-        <Footer />
+        <Footer temBlog={temBlog} />
         <WhatsAppButton />
+        <Analytics />
       </body>
     </html>
   );

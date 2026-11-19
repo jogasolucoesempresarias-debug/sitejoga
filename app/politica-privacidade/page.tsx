@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE } from "@/lib/site";
+import { GA_ID, SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -28,6 +28,8 @@ export default function PoliticaPage() {
               utilizado e a descrição do seu desafio —, além das suas respostas ao questionário do
               diagnóstico (usadas para calcular o seu placar de maturidade). Opcionalmente, se você
               escolher, uma planilha de vendas que enviar para uma análise mais aprofundada.
+              {GA_ID &&
+                " Também usamos o Google Analytics para medir, de forma agregada, as visitas ao site (páginas vistas, origem do acesso, tipo de dispositivo). Ele usa cookies e não recebe seu nome, e-mail ou telefone. Você pode bloqueá-lo nas configurações do navegador."}
             </Bloco>
             <Bloco titulo="3. Como usamos">
               Usamos esses dados exclusivamente para responder ao seu contato, realizar o diagnóstico

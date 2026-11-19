@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { NAV } from "@/lib/site";
+import { navCom } from "@/lib/site";
 import { CTA as CTA_ESTOQUE, LP_ESTOQUE_PATH } from "@/lib/lp-estoque";
 
-export default function Header() {
+export default function Header({ temBlog = false }: { temBlog?: boolean }) {
+  const NAV = navCom(temBlog);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();

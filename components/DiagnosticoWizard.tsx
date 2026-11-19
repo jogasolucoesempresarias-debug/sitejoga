@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { API_BASE, CONTACT, UPLOAD_PLANILHA_ATIVO } from "@/lib/site";
+import { evento } from "@/lib/analytics";
 import { btnGhost, btnPrimary, field, labelCls } from "@/lib/ui";
 import UploadPlanilha from "./UploadPlanilha";
 import RadarPlacar from "./RadarPlacar";
@@ -280,6 +281,7 @@ export default function DiagnosticoWizard() {
       const data: Resultado = await r.json();
       setResultado(data);
       setStage("result");
+      evento("generate_lead", { origem: "diagnostico", setor: respostas.q1 });
     } catch {
       // Plano B: abre o WhatsApp com o resumo (não perde o lead).
       setErr("Não conseguimos processar agora — vamos te atender pelo WhatsApp.");

@@ -5,6 +5,7 @@ import Reveal from "../Reveal";
 import RadarPlacar from "../RadarPlacar";
 import { btnGhost, btnPrimary, field, labelCls } from "@/lib/ui";
 import { API_BASE, CONTACT } from "@/lib/site";
+import { evento } from "@/lib/analytics";
 import { CTA, NIVEL_STYLE, QUIZ } from "@/lib/lp-estoque";
 
 /* ─────────────────────────────────────────────────────────────
@@ -115,6 +116,7 @@ export default function QuizEstoque() {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const data: Resultado = await r.json();
       setResultado(data);
+      evento("generate_lead", { origem: "lp-estoque" });
       setTimeout(
         () => resultadoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
         140

@@ -1,21 +1,5 @@
 import Reveal from "./Reveal";
-
-type Socio = { nome: string; papel: string; bio: string; foto?: string };
-
-const socios: Socio[] = [
-  {
-    nome: "João Victor",
-    papel: "Negócio · Comercial e Compras",
-    foto: "/socios/joao.jpeg",
-    bio: "Mais de 15 anos nas áreas comercial e de compras — vendas, gestão de equipes, atacado distribuidor e varejo supermercadista. Domínio de indicadores, rentabilidade, carteira de clientes, estoque e Business Intelligence. Traduz o jogo do cliente em prioridade de negócio.",
-  },
-  {
-    nome: "Gabriel França",
-    papel: "Desenvolvedor · Sistemas, Dados e IA",
-    foto: "/socios/gabriel.jpeg",
-    bio: "Desenvolvedor JOGA. Cria os sistemas de ponta a ponta — banco de dados, back-end, integrações entre ERPs e planilhas, automações e agentes de Inteligência Artificial que rodam no dia a dia das empresas. Transforma dados dispersos em estruturas confiáveis e constrói a base que sustenta o jogo.",
-  },
-];
+import { SOCIOS as socios } from "@/lib/site";
 
 export default function Autoridade() {
   return (

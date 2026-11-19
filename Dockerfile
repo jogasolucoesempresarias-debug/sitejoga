@@ -4,7 +4,10 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
 COPY . .
-RUN npm run build
+# Os artigos do blog são lidos da API NO BUILD. Sem isto, o cache do Docker reaproveitaria o
+# build anterior quando só o blog mudou (o código é o mesmo) e o artigo novo não entraria.
+ARG BUILD_ID=local
+RUN echo "build ${BUILD_ID}" && npm run build
 
 # ---- serve: nginx com o estático ----
 FROM nginx:alpine

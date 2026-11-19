@@ -1,6 +1,7 @@
-import { SITE, CONTACT, NAV, waLink } from "@/lib/site";
+import { SITE, CONTACT, navCom, waLink } from "@/lib/site";
 
-export default function Footer() {
+export default function Footer({ temBlog = false }: { temBlog?: boolean }) {
+  const NAV = navCom(temBlog);
   return (
     <footer className="border-t border-line bg-ink">
       <div className="container-joga grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
