@@ -66,12 +66,31 @@ jobs:
             echo "::warning::Secrets de deploy ausentes — imagem publicada, deploy NÃO feito (rodar o docker service update à mão)."
             exit 0
           fi
+          # Secrets colados no navegador costumam vir com \r ou espaço sobrando.
+          DEPLOY_HOST=$(printf '%s' "$DEPLOY_HOST" | tr -d '\r\n ')
+          DEPLOY_USER=$(printf '%s' "${DEPLOY_USER:-joaogabriel}" | tr -d '\r\n ')
           install -m 700 -d ~/.ssh
-          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes \
-            "${DEPLOY_USER:-joaogabriel}@${DEPLOY_HOST}" deploy
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+
+          # Cada falha vira uma anotação com a causa (aparece no resumo da Action).
+          if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
+            echo "::error::DEPLOY_SSH_KEY inválida — colar de novo a chave inteira, com as linhas BEGIN e END."; exit 1
+          fi
+          if ! ssh-keygen -F "$DEPLOY_HOST" -f ~/.ssh/known_hosts >/dev/null 2>&1; then
+            echo "::error::DEPLOY_KNOWN_HOSTS não tem o IP de DEPLOY_HOST — colar de novo a saída do ssh-keyscan."; exit 1
+          fi
+          if ! timeout 15 bash -c "</dev/tcp/$DEPLOY_HOST/22" 2>/dev/null; then
+            echo "::error::Porta 22 do servidor não respondeu ao GitHub — firewall/fail2ban bloqueando."; exit 1
+          fi
+          if ! ssh -v -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes \
+                -o ConnectTimeout=20 "${DEPLOY_USER}@${DEPLOY_HOST}" deploy 2> ~/ssh.log; then
+            motivo=$(grep -iE 'Permission denied|Host key verification failed|REMOTE HOST IDENTIFICATION|Connection (refused|timed out|closed|reset)|Load key|password is required|sudo:|not allowed' ~/ssh.log | tail -3 | tr '\n' ' ')
+            echo "::error::SSH falhou: ${motivo:-sem mensagem clara, ver o log do passo}"
+            tail -25 ~/ssh.log
+            exit 1
+          fi
 
       - name: Conferir o site no ar
         if: success()
